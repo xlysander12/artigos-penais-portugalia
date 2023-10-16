@@ -16606,7 +16606,7 @@ html {
 .articleList {
     padding-bottom: .25rem !important;
     overflow: auto;
-    max-height: 400px
+    max-height: 25rem;
 }
 
 .articleList .text-article {

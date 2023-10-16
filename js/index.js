@@ -56,6 +56,22 @@ function get_crime_by_article(article, isFine) {
     }
 }
 
+function format_crime_article(crime) {
+    let subalineas = ["a", "b", "c", "d", "e"];
+
+    let str = "Artigo nº " + crime.artigo;
+
+    if (crime.alinea !== 0) {
+        str += "." + crime.alinea;
+
+        if (crime.subalinea !== 0) {
+            str += "." + subalineas[crime.subalinea - 1];
+        }
+    }
+
+    return str;
+}
+
 function build_crime_card(parent_div, crime) {
     // Create new element
     let card = document.createElement("div");
@@ -65,7 +81,7 @@ function build_crime_card(parent_div, crime) {
             <div class="card-body">
                 <div class="row g-0">
                     <div class="col-auto">
-                        <small class="articleType">Artigo nº ${crime.artigo}</small>
+                        <small class="articleType">${format_crime_article(crime)}</small>
                     </div>
                     <div class="col d-flex justify-content-end">
                                 <!---->
@@ -188,7 +204,7 @@ function update_summary() {
                     <div class="col-auto">
                         <div class="row text-article">
                             <small>
-                                Artigo nº ${crime.artigo}
+                                ${format_crime_article(crime)}
                                 <div style="color: lightgray">
                                     <span><i class="fas fa-euro-sign align-self-center"></i>&nbsp;${format_money(crime.coima)}</span>
                                     &nbsp;
@@ -197,7 +213,7 @@ function update_summary() {
                                 
                             </small>
                         </div>
-                        <div class="row" style="width: 350px"><small style="word-wrap: break-word">${crime.nome}</small></div>
+                        <div class="row" style="width: 22rem"><small style="word-wrap: break-word">${crime.nome}</small></div>
                     </div>
                     <div class="col align-items-center d-flex justify-content-end">
                         <a class="text-danger align-middle"><i class="fa fa-times alert-close" onclick='remove_crime_from_summary(${crime_json})'></i></a>
