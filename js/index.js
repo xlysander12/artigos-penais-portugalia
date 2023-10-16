@@ -73,7 +73,7 @@ function format_crime_article(crime) {
 }
 
 function format_crime_prision(crime) {
-    return crime.prisao_min + "-" + crime.prisao + "-" + crime.prisao_max
+    return crime.prisao_min + "-" + crime.prisao + "-" + crime.prisao_max + " anos";
 }
 function build_crime_card(parent_div, crime) {
     // Create new element
