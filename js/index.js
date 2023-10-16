@@ -56,6 +56,25 @@ function get_crime_by_article(article, isFine) {
     }
 }
 
+function format_crime_article(crime) {
+    let subalineas = ["a", "b", "c", "d", "e"];
+
+    let str = "Artigo nº " + crime.artigo;
+
+    if (crime.alinea !== 0) {
+        str += "." + crime.alinea;
+
+        if (crime.subalinea !== 0) {
+            str += "." + subalineas[crime.subalinea - 1];
+        }
+    }
+
+    return str;
+}
+
+function format_crime_prision(crime) {
+    return crime.prisao_min + "-" + crime.prisao + "-" + crime.prisao_max + " anos";
+}
 function build_crime_card(parent_div, crime) {
     // Create new element
     let card = document.createElement("div");
@@ -65,7 +84,7 @@ function build_crime_card(parent_div, crime) {
             <div class="card-body">
                 <div class="row g-0">
                     <div class="col-auto">
-                        <small class="articleType">Artigo nº ${crime.artigo}</small>
+                        <small class="articleType">${format_crime_article(crime)}</small>
                     </div>
                     <div class="col d-flex justify-content-end">
                                 <!---->
@@ -81,7 +100,7 @@ function build_crime_card(parent_div, crime) {
                 </span>
                 <span class="col d-flex justify-content-end align-self-center">
                     <i class="far fa-clock align-self-center"></i> 
-                        <span class="text-primary"> ${crime.prisao > 0 ? crime.prisao + " anos": "Sem cadeia"}</span>
+                        <span class="text-primary">&nbsp;${format_crime_prision(crime)}</span>
                 </span>
             </div>
         </div>`;
@@ -105,7 +124,7 @@ function search_crimes(search) {
     // Search crimes by categories
     categories.forEach((category) => {
         stored_crimes[category].forEach((crime) => {
-            if (crime.nome.toLowerCase().includes(search.toLowerCase()) || crime.artigo == search) {
+            if (crime.nome.toLowerCase().includes(search.toLowerCase()) || crime.artigo === search) {
                 build_crime_card(category, crime);
             }
         });
@@ -188,16 +207,16 @@ function update_summary() {
                     <div class="col-auto">
                         <div class="row text-article">
                             <small>
-                                Artigo nº ${crime.artigo}
+                                ${format_crime_article(crime)}
                                 <div style="color: lightgray">
                                     <span><i class="fas fa-euro-sign align-self-center"></i>&nbsp;${format_money(crime.coima)}</span>
                                     &nbsp;
-                                    <span><i class="far fa-clock align-self-center"></i>&nbsp;${crime.prisao > 0 ? `${crime.prisao} anos` : "Sem Cadeia"}</span>
+                                    <span><i class="far fa-clock align-self-center"></i>&nbsp;${format_crime_prision(crime)}</span>
                                 </div>
                                 
                             </small>
                         </div>
-                        <div class="row" style="width: 350px"><small style="word-wrap: break-word">${crime.nome}</small></div>
+                        <div class="row" style="width: 20rem"><small style="word-wrap: break-word">${crime.nome}</small></div>
                     </div>
                     <div class="col align-items-center d-flex justify-content-end">
                         <a class="text-danger align-middle"><i class="fa fa-times alert-close" onclick='remove_crime_from_summary(${crime_json})'></i></a>
@@ -206,9 +225,19 @@ function update_summary() {
         });
 
         // Do the maths
+        let total_prision_min = 0
+        for (i = 0; i < crimes_adicionados.length; i++) {
+            total_prision_min += crimes_adicionados[i].prisao_min;
+        }
+
         let total_prision = 0;
         for (i = 0; i < crimes_adicionados.length; i++) {
             total_prision += crimes_adicionados[i].prisao;
+        }
+
+        let total_prision_max = 0;
+        for (i = 0; i < crimes_adicionados.length; i++) {
+            total_prision_max += crimes_adicionados[i].prisao_max;
         }
 
         let total_fines = 0;
@@ -226,7 +255,9 @@ function update_summary() {
             `<div class="card-footer articleSums">
                 <div class="row">
                     <h5>Total multas: ${format_money(total_fines)} €</h5>
+                    ${total_prision_min > 25 ? `<h6>Sentença Mínima: Pena Máxima (${total_prision_min} anos)</h6>`: `<h6>Sentença Mínima: ${total_prision_min} anos</h6>`}
                     ${total_prision > 25 ? `<h6>Sentença Recomendada: Pena Máxima (${total_prision} anos)</h6>`: `<h6>Sentença Recomendada: ${total_prision} anos</h6>`}
+                    ${total_prision_max > 25 ? `<h6>Sentença Máxima: Pena Máxima (${total_prision_max} anos)</h6>`: `<h6>Sentença Máxima: ${total_prision_max} anos</h6>`}
                 </div>
             </div>`
 
