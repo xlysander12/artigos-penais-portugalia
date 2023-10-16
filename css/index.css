@@ -16606,7 +16606,13 @@ html {
 .articleList {
     padding-bottom: .25rem !important;
     overflow: auto;
-    max-height: 50vh;
+    max-height: 40vh !important;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.articleList::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
 }
 
 .articleList .text-article {
