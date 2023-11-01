@@ -150,15 +150,16 @@ function clear_summary() {
 function copy_articles() {
     let articles = "";
     for (let i = 0; i < crimes_adicionados.length; i++) {
-        if (i === crimes_adicionados.length - 1) {
-            articles += crimes_adicionados[i].nome;
-        } else {
-            articles += `${crimes_adicionados[i].nome} | `;
+        // Remove text from inside [] brackets
+        articles += crimes_adicionados[i].nome.replace(/\[.*?\]/g, "").trimEnd();
+
+        if (i !== crimes_adicionados.length - 1) {
+            articles += " | ";
         }
 
     }
     navigator.clipboard.writeText(articles).then(function() {
-        alert("Artigos copiados para a área de transferência!");
+        alert("Artigos copiados para a área de transferência! (CTRL + V)");
     }, function() {
         alert("Não foi possível copiar os artigos!");
     });
