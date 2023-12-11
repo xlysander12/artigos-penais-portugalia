@@ -138,7 +138,7 @@ function add_crime_to_summary(crime) {
 }
 
 function remove_crime_from_summary(crime) {
-    crimes_adicionados.splice(crimes_adicionados.indexOf(crime), 1);
+    crimes_adicionados.splice(crimes_adicionados.map(c => c.nome).indexOf(crime.nome), 1);
     update_summary();
 }
 
