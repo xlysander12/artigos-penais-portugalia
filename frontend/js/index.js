@@ -4,31 +4,31 @@ crimes_adicionados = []
 
 async function load_crimes_from_db() {
     // contraordanacoes_rodoviarias
-    let crimes = await fetch("https://www.crunchypi.xyz/querycrimesdb", {method: "POST", headers: {"Accept": "application/json", "Content-Type": "application/json"}, body: JSON.stringify({"query": "SELECT * FROM contraordenacoes_rodoviarias"})})
+    let crimes = await fetch("/api/crimes/contraordenacoes_rodoviarias", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contraordenacoes_rodoviarias = await crimes.json();
 
     // contraordanacoes_nauticas
-    crimes = await fetch("https://www.crunchypi.xyz/querycrimesdb", {method: "POST", headers: {"Accept": "application/json", "Content-Type": "application/json"}, body: JSON.stringify({"query": "SELECT * FROM contraordenacoes_nauticas"})})
+    crimes = await fetch("/api/crimes/contraordenacoes_nauticas", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contraordenacoes_nauticas = await crimes.json();
 
     // crimes_contra_estado
-    crimes = await fetch("https://www.crunchypi.xyz/querycrimesdb", {method: "POST", headers: {"Accept": "application/json", "Content-Type": "application/json"}, body: JSON.stringify({"query": "SELECT * FROM contra_estado"})})
+    crimes = await fetch("/api/crimes/contra_estado", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_estado = await crimes.json();
 
     // crimes_identidade_cultural
-    crimes = await fetch("https://www.crunchypi.xyz/querycrimesdb", {method: "POST", headers: {"Accept": "application/json", "Content-Type": "application/json"}, body: JSON.stringify({"query": "SELECT * FROM contra_identidade_cultural"})})
+    crimes = await fetch("/api/crimes/contra_identidade_cultural", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_identidade_cultural = await crimes.json();
 
     // crimes_patrimonio
-    crimes = await fetch("https://www.crunchypi.xyz/querycrimesdb", {method: "POST", headers: {"Accept": "application/json", "Content-Type": "application/json"}, body: JSON.stringify({"query": "SELECT * FROM contra_patrimonio"})})
+    crimes = await fetch("/api/crimes/contra_patrimonio", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_patrimonio = await crimes.json();
 
     // crimes_pessoas
-    crimes = await fetch("https://www.crunchypi.xyz/querycrimesdb", {method: "POST", headers: {"Accept": "application/json", "Content-Type": "application/json"}, body: JSON.stringify({"query": "SELECT * FROM contra_pessoas"})})
+    crimes = await fetch("/api/crimes/contra_pessoas", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_pessoas = await crimes.json();
 
     // crimes_vida_sociedade
-    crimes = await fetch("https://www.crunchypi.xyz/querycrimesdb", {method: "POST", headers: {"Accept": "application/json", "Content-Type": "application/json"}, body: JSON.stringify({"query": "SELECT * FROM contra_vida_sociedade"})})
+    crimes = await fetch("/api/crimes/contra_vida_sociedade", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_vida_sociedade = await crimes.json();
 
     // When all finished, build the cards
@@ -36,7 +36,7 @@ async function load_crimes_from_db() {
 }
 
 /**
- * @deprecated Since 07/10/2023. Pass proper crime object to functions instead of article number
+ * @deprecated Since 07/10/2023. Pass proper crimeobject to functions instead of article number
  */
 function get_crime_by_article(article, isFine) {
     if (isFine) {
