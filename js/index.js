@@ -209,6 +209,11 @@ function update_summary() {
                         <div class="row text-article">
                             <small>
                                 ${format_crime_article(crime)}
+                            </small>
+                        </div>
+                        <div class="row" style="width: 20rem"><small style="word-wrap: break-word">${crime.nome}</small></div>
+                        <div class="row text-article">
+                            <small>
                                 <div style="color: lightgray">
                                     <span><i class="fas fa-euro-sign align-self-center"></i>&nbsp;${format_money(crime.coima)}</span>
                                     &nbsp;
@@ -217,7 +222,6 @@ function update_summary() {
                                 
                             </small>
                         </div>
-                        <div class="row" style="width: 20rem"><small style="word-wrap: break-word">${crime.nome}</small></div>
                     </div>
                     <div class="col align-items-center d-flex justify-content-end">
                         <a class="text-danger align-middle"><i class="fa fa-times alert-close" onclick='remove_crime_from_summary(${crime_json})'></i></a>
