@@ -1,34 +1,42 @@
 stored_crimes= {"contraordenacoes_rodoviarias": [], "contraordenacoes_nauticas": [], "contra_estado": [], "contra_identidade_cultural": [], "contra_patrimonio": [], "contra_pessoas": [], "contra_vida_sociedade": []}
 crimes_adicionados = []
 
+function get_api_url() {
+    if (window.location.hostname.includes("portugalia.")) {
+        return "/calculadora_crimes/api"
+    } else {
+        return "/portugalia/calculadora_crimes/api"
+    }
+
+}
 
 async function load_crimes_from_db() {
     // contraordanacoes_rodoviarias
-    let crimes = await fetch("/calculadora_crimes/api/crimes/contraordenacoes_rodoviarias", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+    let crimes = await fetch(`${get_api_url()}/crimes/contraordenacoes_rodoviarias`, {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contraordenacoes_rodoviarias = await crimes.json();
 
     // contraordanacoes_nauticas
-    crimes = await fetch("/calculadora_crimes/api/crimes/contraordenacoes_nauticas", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+    crimes = await fetch(`${get_api_url()}/crimes/contraordenacoes_nauticas`, {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contraordenacoes_nauticas = await crimes.json();
 
     // crimes_contra_estado
-    crimes = await fetch("/calculadora_crimes/api/crimes/contra_estado", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+    crimes = await fetch(`${get_api_url()}/crimes/contra_estado`, {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_estado = await crimes.json();
 
     // crimes_identidade_cultural
-    crimes = await fetch("/calculadora_crimes/api/crimes/contra_identidade_cultural", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+    crimes = await fetch(`${get_api_url()}/crimes/contra_identidade_cultural`, {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_identidade_cultural = await crimes.json();
 
     // crimes_patrimonio
-    crimes = await fetch("/calculadora_crimes/api/crimes/contra_patrimonio", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+    crimes = await fetch(`${get_api_url()}/crimes/contra_patrimonio`, {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_patrimonio = await crimes.json();
 
     // crimes_pessoas
-    crimes = await fetch("/calculadora_crimes/api/crimes/contra_pessoas", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+    crimes = await fetch(`${get_api_url()}/crimes/contra_pessoas`, {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_pessoas = await crimes.json();
 
     // crimes_vida_sociedade
-    crimes = await fetch("/calculadora_crimes/api/crimes/contra_vida_sociedade", {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+    crimes = await fetch(`${get_api_url()}/crimes/contra_vida_sociedade`, {method: "GET", headers: {"Accept": "application/json", "Content-Type": "application/json"}})
     stored_crimes.contra_vida_sociedade = await crimes.json();
 
     // When all finished, build the cards
