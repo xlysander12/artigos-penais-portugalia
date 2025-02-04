@@ -1,19 +1,21 @@
 const express = require('express');
-const path = require('path');
+const cors = require("cors");
 
-// Initializing the Router
-const app = express.Router();
+const env = require('dotenv');
+const path = require("path");
+// Loading the environment variables
+env.config({path: path.join(__dirname, '.env')});
 
-// Serving the static files
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
+// Creating the app
+const app = express();
 
-// Adding the API Router
-app.use("/api", require('./api/index.js'));
+// Enabling CORS
+app.use(cors());
 
-// Adding the index route
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+// Adding the router
+app.use("/portugalia/calculadora_crimes", require('./main.js'));
+
+// Starting the server
+app.listen(process.env["HTTP_PORT"], () => {
+    console.log(`Server started at port ${process.env["HTTP_PORT"]}`);
 });
-
-// Exporting the Router
-module.exports = app;

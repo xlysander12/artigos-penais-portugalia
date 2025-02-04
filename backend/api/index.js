@@ -1,10 +1,5 @@
 const express = require('express');
-const path = require('path');
 const mysql = require('mysql2/promise');
-const env = require('dotenv');
-
-// Loading the environment variables
-env.config({path: path.join(__dirname, '..', '.env')});
 
 // Initializing the Router
 const app = express.Router();
